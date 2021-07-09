@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+      body{
+    background-image: url(https://img.wallpapersafari.com/desktop/1920/1080/20/75/5NqCUQ.jpg);
+    background-size: auto;
+    }
+    </style>
+    <title>Acerca de...</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-sm bg-light navbar-dark">
+    
+    <a class="navbar-brand">
+      <img src="https://images.vexels.com/media/users/3/210332/isolated/preview/994b909abeb0bd15f0ca43f5f32ad6f2-jaguar-animal-negro.png" alt="logo" style="width:50px; color: white;">
+    </a>
+    
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <h2 class="text" style="text-size-adjust: 15px;">Jaguarete Kaa S.A.</h2>
+      </li>
+    </ul>
+  </nav>
+
+    <header class="p-3 bg-light">
+        <div class="container">
+          <div class="d-flex flex-wrap align-items-left justify-content-center justify-content-lg-start">
+            <img scr="https://static.thenounproject.com/png/1813243-200.png" class="d-flex align-items-left mb-2 mb-lg-0 text-decoration-none" style="float: left;">
+            </img>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="{% url 'index' %}" class="btn btn-warning">Indice</a></li>
+              
+              
+              
+    &nbsp;<li><a href="{% url 'acerca' %}" class="btn btn-warning">Acerca de...</a></li>
+              {% if perms.app.add_producto %}
+              &nbsp;<li><a href="{% url 'agregar_producto' %}" class="btn btn-warning">Agregar Producto</a></li>
+              {% endif %}
+            </ul>
+    
+            <div class="text-end">
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="btn btn-secondary" >Cerrar Sesion</a>
+              <a class="btn btn-warning">Bienvenido: {{ user.username.upper }}</a>
+            {% else %}
+              <a href="{% url 'login' %}" class="btn btn-warning" >Ingresar</a>
+              <a href="{% url 'registro' %}" type="button" class="btn btn-warning">Registrarse</a>
+            {% endif %}
+            </div>
+          </div>
+        </div>
+      </header>
+
+  <div class="container d-flex justify-content-center" style="padding-top: 15%;">
+    <div class="card">
+        <div class="card-header">
+          Jaguarete Kaa S.A.
+        </div>
+        <div class="card-body">
+          <p class="card-text"><b> Jaguarete Kaa S.A., fundada en 2011 somos uno de los mayoristas con los precios mas competitivos del mercado y los mejores proveedores y amigos de tu almacen, espero encuentres lo que busques, recibimos con mucho gusto todas las sugerencias para seguir creciendo.
+        </b></p>
+        </div>
+      </div>
+  </div>
+</body>
+</html>

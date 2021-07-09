@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/310a3d79fb.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+
+    body{
+    background-image: url(https://img.wallpapersafari.com/desktop/1920/1080/20/75/5NqCUQ.jpg);
+    background-size: auto;
+    }
+    .card-text{
+        color: lightgreen;
+        font-weight: 800;
+    }
+
+    .card-title{
+        font-weight: 900;
+    }
+    .container{
+      width: 100%;
+      max-width: 1300px;
+      height: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: auto;
+  }
+  
+  .container .card{
+      width: 200px;
+      height: 300px;
+      border-radius: 8px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      margin: 20px;
+      text-align: center;
+      transition: all 0.25s;
+  }
+  
+  .container .card:hover{
+      transform: translateY(-15px);
+      box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .container .card img{
+      margin: auto;
+      width: 170px;
+      height: 150px;
+  }
+    </style>
+    <title>Jaguarete KAA S.A.</title>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-expand-sm bg-light navbar-dark">
+    
+    <a class="navbar-brand">
+      <img src="https://images.vexels.com/media/users/3/210332/isolated/preview/994b909abeb0bd15f0ca43f5f32ad6f2-jaguar-animal-negro.png" alt="logo" style="width:50px; color: white;">
+    </a>
+    
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <h2 class="text" style="text-size-adjust: 15px;">Jaguarete Kaa S.A.</h2>
+      </li>
+    </ul>
+  </nav>
+  <header class="p-3 bg-light">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-left justify-content-center justify-content-lg-start">
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="{% url 'index' %}" class="btn btn-warning">Indice</a></li>
+          <div class="dropdown">
+            &nbsp;<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Categorias
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <ul>
+                {% for Seccion in lista_secciones %}
+                  <li> <a href="../filtro_secciones/{{ Seccion.id }}"><b>{{ Seccion.descripcion }}</b></a></li>
+                 {% endfor %}
+              </ul>
+            </div>
+          </div>
+          &nbsp;
+          {% if user.is_authenticated %}
+          <a id="cart" data-html="true" type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+sagittis lacus vel augue laoreet rutrum faucibus.">
+  Carrito(0)
+</a> 
+{% else %}
+<a href="{% url 'login' %}" id="cart" data-html="true" type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+sagittis lacus vel augue laoreet rutrum faucibus.">
+  Carrito(0)
+</a> 
+{% endif %}
+&nbsp;<li><a href="{% url 'acerca' %}" class="btn btn-warning">Acerca de...</a></li>
+&nbsp;<li><a href="mailto:mithoznon@gmail.com" class="btn btn-warning">Contacto</a></li>
+          {% if perms.app.add_producto %}
+          &nbsp;<li><a href="{% url 'agregar_producto' %}" class="btn btn-warning">Agregar Producto</a></li>
+          {% endif %}
+        </ul>
+
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <input type="search" class="form-control form-control-dark" name="item_name" placeholder="Busque su producto" aria-label="Search">
+        </form>
+
+        <div class="text-end">
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="btn btn-secondary" >Cerrar Sesion</a>
+          <a class="btn btn-warning">Bienvenido: {{ user.username.upper }}</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-warning" >Ingresar</a>
+          <a href="{% url 'registro' %}" type="button" class="btn btn-warning">Registrarse</a>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </header>
+    <div class="container">
+        <div class="row">
+            {% for products in product_cards %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ products.image }}" class="card-img-top">
+                    <div class="card-body">
+                        <div id="nm{{ products.id }}" class="card-title">{{ products.title }}</div>
+                        <div id="price{{ products.id }}" class="card-text">{{ products.price }}</div>
+
+                        <a href="/{{ products.id }}" class="btn btn-warning">
+                            Ver
+                        </a>
+                        {% if user.is_authenticated %}
+                        <a id="{{ products.id }}" class="btn atc btn-warning">
+                          Agregar
+                        </a>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="btn atc btn-warning">
+                          Agregar
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <table class="table table-light">
+      <thead style="margin: 2px;">
+        <tr>
+          <th scope="col">Producto</th>
+          <th scope="col">Descripción</th>
+        </tr>
+      </thead>
+      {% for product in product_list %}
+      <tbody>
+        <tr>
+          <td><a href="/{{ product.id }}">{{ product.title }}</a></td>
+          <td>{{ product.description }}</td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+
+</body>
+<script type="text/javascript">
+      if(localStorage.getItem('cart')==null){
+      var cart = {};
+    }
+  else{
+    cart = JSON.parse(localStorage.getItem('cart'));
+  }
+
+  $(document).on('click','.atc' ,function(){
+      console.log("Se añadidó un producto al carrito");
+      var item_id = this.id.toString();
+      console.log(item_id);
+
+      if(cart[item_id]!=undefined){
+          quantity = cart[item_id][0] +1;
+          cart[item_id][0] = quantity;
+          cart[item_id][2] = cart[item_id][2] + parseFloat(document.getElementById("price"+item_id).innerHTML);
+          
+      }
+      else{
+          quantity = 1;
+          price = parseFloat(document.getElementById("price"+item_id).innerHTML)
+          name = document.getElementById("nm"+item_id).innerHTML;
+          cart[item_id]=[quantity,name,price];
+      }
+      console.log(cart);
+      localStorage.setItem('cart',JSON.stringify(cart));
+      document.getElementById("cart").innerHTML = "Carrito("+ Object.keys(cart).length +")";
+  });
+
+   DisplayCart(cart);
+   function DisplayCart(cart){
+       var cartString ="";
+       cartString += "<h5>Articulos</h5>";
+       var cartIndex = 1;
+       for(var x in cart){
+            cartString += cartIndex;
+            cartString += document.getElementById("nm"+x).innerHTML + "</br>Cantidad: " + cart[x][0] + "</br>";
+            cartIndex+=1;
+       }
+
+       cartString += "<a href='/checkout'><button class='btn btn-warning' id='checkout'>Ver Carrito</button></a>";
+       document.getElementById("cart").setAttribute('data-content',cartString);
+       $('[data-toggle="popover"]').popover();
+   }
+</script>
+</html>
+
